@@ -26,6 +26,17 @@ pipeline {
             }
         }
 
+    stage('Deploy Docker Image to DockerHub') {
+            steps {
+                script {
+                 withCredentials([string(credentialsId: 'DOCKER_CRED', variable: 'DOCKER_CRED')]) {
+                    sh 'docker login -u pkbhub -p ${DOCKER_CRED}'
+            }
+            sh 'docker push pkbhub/node-app-1.0'
+        }
+            }   
+        }
+
 
   }
 }
